@@ -1,0 +1,9 @@
+server:
+  port: 80
+spring:
+  data:
+    mongodb:
+      uri: "mongodb://127.0.0.1:27017/admin?authSource=adn&connectTimeoutMS=30000&maxPoolSize=15&retryWrites=true&w=majority"
+      auto-index-creation: false
+  codec:
+    max-in-memory-size: 100MB
