@@ -24,15 +24,15 @@ public class MutantRecognitionController {
 
     }
 
-    @GetMapping(path = "/report")
+    @GetMapping(path = "/stats")
     public ReportDTO getStats() {
         return this.mutantRecognitionService.getReport();
     }
 
-    @PostMapping(path = "/validate")
+    @PostMapping(path = "/mutant")
     public ResponseEntity<Boolean> isMutant(@RequestBody final DNASampleDTO dnaSample) {
         return ResponseEntity
-                .ok(this.mutantRecognitionService.isMutant(dnaSample.getDnaSample()));
+                .ok(this.mutantRecognitionService.isMutant(dnaSample.getDna()));
     }
 
 }

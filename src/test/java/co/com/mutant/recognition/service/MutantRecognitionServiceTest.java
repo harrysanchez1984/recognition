@@ -42,7 +42,7 @@ public class MutantRecognitionServiceTest {
     }
 
     @Test
-    void isMutantTest() {
+    void whenAdnIsMutantThenReturnTrue() {
 
         String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
         boolean flag = mutantRecognitionServiceImpl.isMutant(dna);
@@ -51,7 +51,7 @@ public class MutantRecognitionServiceTest {
     }
 
     @Test
-    void isNotMutantTest() {
+    void whenAdnIsNotMutantThenReturnFalse() {
 
         String[] dna = {"ATGAGA","CAGAGC","TTCTGT","AGAAGG","CTTCTA","TCACTG"};
 

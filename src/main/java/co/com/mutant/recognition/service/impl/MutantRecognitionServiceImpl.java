@@ -19,7 +19,7 @@ import co.com.mutant.recognition.service.MutantRecognitionService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
+@Slf4j 
 public class MutantRecognitionServiceImpl implements MutantRecognitionService {
 
 	private MutantRepository mutantRepository;
@@ -62,7 +62,7 @@ public class MutantRecognitionServiceImpl implements MutantRecognitionService {
 			log.info(" searchStrategy : {} ", searchStrategy);
 			count += searchUsingStrategy(dna, searchStrategy.getDirection(), searchStrategy.getSequences());
 			if (count >= MUTANT_VALID_SEQUENCE_LENGTH) {
-				log.info(" count ::: {} ", count);
+				log.info(" count: {} ", count);
 				return Boolean.TRUE;
 			}
 		}
@@ -84,26 +84,24 @@ public class MutantRecognitionServiceImpl implements MutantRecognitionService {
 					counter = 1;
 				}
 				if (counter == MUTANT_SEQUENCE_LENGTH) {
-					log.info(" sequenceCount return : {} ", sequenceCount);
+					log.info(" sequence count returned : {} ", sequenceCount);
 					return 1;
 				}
 			}
 		} while (dnaIterator.nextStartDimension(direction));
-		log.info(" sequenceCount down : {} ", sequenceCount);
 		return sequenceCount;
 	}
 
 	private void validateDnaSize() {
-		System.out.println("Entro a validateDnaSize  -> " + this.dna.length);
 		Arrays.stream(this.dna).parallel().filter(dnaMutant -> Objects.nonNull(dna))
 				.filter(dnaMutant -> dnaMutant.length() > 0).filter(dnaMutant -> {
 					return dnaMutant.length() <= MutantRecognitionService.MUTANT_CHROMOSOME_LENGTH;
 				}).map(dnaMutant -> Boolean.TRUE).findAny()
-				.orElseThrow(() -> new RuntimeException("validating error size array"));
+				.orElseThrow(() -> new RuntimeException("Array size error"));
 	}
 
 	private void validateDnaStructure() {
-		log.info(" Validar adn structure : this.dna " + this.dna);
+		log.info(" DNA validation: " + this.dna);
 		Arrays.stream(this.dna).forEach(charItem -> {
 			charItem.chars().forEach(value -> {
 				validateDnaContent(Character.toString((char) value));
@@ -117,13 +115,12 @@ public class MutantRecognitionServiceImpl implements MutantRecognitionService {
 
 	@Async
 	private Boolean storeResult(final String[] dna, final Boolean isMutant) {
-		MutantEntity m = this.mutantRepository.save(MutantEntity.builder().id(String.join("-", dna)).isMutantValue(isMutant).build());
-
+		this.mutantRepository.save(MutantEntity.builder().id(String.join("-", dna)).isMutantValue(isMutant).build());
 		return isMutant;
 	}
 
 	public double validateRatio(final double human, final double mutant) {
-		log.info(" validate Ratio ::: human : {} mutant : {}", human, mutant);
+		log.info("Ratio -> no-mutant : {} mutant : {}", human, mutant);
 		long ratio = 0;
 		if (mutant == 0) {
 			return ratio;
@@ -134,7 +131,7 @@ public class MutantRecognitionServiceImpl implements MutantRecognitionService {
 	private Boolean validateDnaContent(String character) {
 		return Arrays.stream(DNAGenes.values()).filter(charEnum -> charEnum.name().equalsIgnoreCase(character))
 				.map(value -> Boolean.TRUE).findAny()
-				.orElseThrow(() -> new RuntimeException("validating structure dna"));
+				.orElseThrow(() -> new RuntimeException("Not valid DNA structure"));
 
 	}
 

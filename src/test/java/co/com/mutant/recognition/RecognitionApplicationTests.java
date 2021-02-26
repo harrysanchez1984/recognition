@@ -15,13 +15,13 @@ class RecognitionApplicationTests {
 
 	@Test
 	void contextLoads() {
-		String[] process = {"arg1", "arg2"};
+		String[] process = {"AAGGCCTT", "TTCCGGAA"};
 
 		DNASampleDTO sample =  new DNASampleDTO();
-		sample.setDnaSample(process);
+		sample.setDna(process);
 
 		assertTrue(Objects.nonNull(sample));
-		assertEquals("arg1", sample.getDnaSample()[0]);
+		assertEquals("AAGGCCTT", sample.getDna()[0]);
 	}
 
 }

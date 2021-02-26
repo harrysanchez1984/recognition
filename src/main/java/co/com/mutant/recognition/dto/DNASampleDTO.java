@@ -13,6 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DNASampleDTO {
 	
-	private String[] dnaSample;
+	private String[] dna;
 
 }
